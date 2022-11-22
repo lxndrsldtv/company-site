@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
 
-import 'data/app_data.dart';
+import './data/app_data.dart';
 
 import './models/home_model.dart';
 import './models/contact_model.dart';
@@ -16,6 +16,9 @@ import './models/app_menu_model.dart';
 
 import './widgests/base_frame.dart';
 import './pages/resource_unavailable_page.dart';
+import './widgests/sliver_base_frame.dart';
+
+import './providers/app_configuration_provider.dart';
 
 // TODO: feature based
 // TODO: analytics
@@ -78,6 +81,9 @@ class CompanyWebApp extends StatelessWidget {
       home: country == 'Russia'
           ? MultiProvider(
               providers: [
+                ChangeNotifierProvider<AppConfigurationProvider>(
+                  create: (_) => AppConfigurationProvider(),
+                ),
                 Provider<HomeModel>(
                   create: (_) => HomeModel.fromJson(
                       const JsonDecoder().convert(appHomeData)),
@@ -99,7 +105,12 @@ class CompanyWebApp extends StatelessWidget {
                       const JsonDecoder().convert(appMenuData)),
                 ),
               ],
-              child: const BaseFrame(),
+              child: Consumer<AppConfigurationProvider>(
+                builder: (context, appConfiguration, child) =>
+                    appConfiguration.useSliverBaseFrame
+                        ? const SliverBaseFrame()
+                        : const BaseFrame(),
+              ),
             )
           : const ResourceUnavailable(),
     );

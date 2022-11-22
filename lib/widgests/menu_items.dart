@@ -72,7 +72,10 @@ class MenuItems extends StatelessWidget {
         onTap: menuItemPressHandler,
         child: Text(
           appMenuItemModel.label,
-          style: const TextStyle(fontSize: 22),
+          style: const TextStyle(
+            fontSize: 22,
+            color: Colors.black,
+          ),
         ),
       ),
     );
