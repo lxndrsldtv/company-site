@@ -1,51 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../utils/utils.dart';
 import '../utils/constants.dart';
 import '../models/services_model.dart';
-import '../models/text_block_model.dart';
 
 import './vertical_text.dart';
 import './body_header_1.dart';
 import './body_header_2.dart';
-import './header_and_body.dart';
+
+import '../providers/app_configuration_provider.dart';
 
 class Services extends StatelessWidget {
   static const appMenuItemModelId = 'services';
 
   const Services({super.key});
-
-  Widget textBlock(TextBlockModel model) {
-    return HeaderAndBody(
-      header: model.header,
-      body: model.body,
-    );
-  }
-
-  Widget groupTextBlocks(ServicesModel model, Size screenSize) {
-    if (screenSize.width > 900) {
-      List<Widget> twoTextBlocksInRow = [];
-      for (var i = 0; i < model.textBlocks.length; i += 2) {
-        twoTextBlocksInRow.add(Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: textBlock(model.textBlocks[i])),
-            i + 1 < model.textBlocks.length
-                ? Expanded(child: textBlock(model.textBlocks[i + 1]))
-                : Expanded(child: SizedBox(width: screenSize.width * 0.1))
-          ],
-        ));
-      }
-      return Column(
-        children: [...twoTextBlocksInRow],
-      );
-    }
-    return Column(
-      children: [
-        ...model.textBlocks.map((tBlock) => textBlock(tBlock)),
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +50,16 @@ class Services extends StatelessWidget {
                 children: [
                   VerticalText(textToDisplay: value.verticalText),
                   Expanded(
-                    child: groupTextBlocks(value, screenSize),
+                    child: Consumer<AppConfigurationProvider>(
+                      builder: (context, appConfiguration, child) =>
+                          getRowsOfTextBlocks(
+                        blocks: value.textBlocks,
+                        blocksPerRow: screenSize.width > 900
+                            ? appConfiguration.maxTextBlocksPerRowAtServices
+                            : 1,
+                        useEmptyBlocks: true,
+                      ),
+                    ),
                   ),
                 ],
               ),
