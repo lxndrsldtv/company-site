@@ -112,3 +112,47 @@ const appContactData =
 '    "contact": "Contact emailaddress here\\nContact phone here",'
 '    "imageMap": "assets/images/addressMap.png"'
 '}';
+
+const webYandexMap = 
+'''
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Быстрый старт. Размещение интерактивной карты на странице</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=59bd617b-ccf1-484a-9403-777642f03929&lang=ru_RU" type="text/javascript">
+    </script>
+    <script type="text/javascript">
+        
+        ymaps.ready(init);
+
+        function init(){
+            var myMap = new ymaps.Map("map", {
+                center: [55.76, 37.64],
+                zoom: 12
+            });
+        
+            myMap.geoObjects.add(new ymaps.Placemark([55.76, 37.64], {
+                balloonContent: '<strong>Lorem Ipsum</strong>',
+                iconContent: 'LI'
+            }, {
+                preset: 'islands#pinkStretchyIcon',
+                // iconColor: '#f185b2'
+            }));        
+        }
+    </script>
+
+    <style>
+          html, body, #map {
+              width: 100%; height: 100%; padding: 0; margin: 0;
+          }
+    </style>
+
+</head>
+
+<body>
+    <div id="map"></div>
+</body>
+
+</html>
+''';
