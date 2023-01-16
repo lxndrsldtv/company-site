@@ -118,7 +118,7 @@ const webYandexMap =
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Быстрый старт. Размещение интерактивной карты на странице</title>
+    <title>Address Map</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <script src="https://api-maps.yandex.ru/2.1/?apikey=59bd617b-ccf1-484a-9403-777642f03929&lang=ru_RU" type="text/javascript">
     </script>

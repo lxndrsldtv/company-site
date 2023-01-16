@@ -8,7 +8,7 @@ class ResourceUnavailable extends StatelessWidget {
     return const Scaffold(
       body: Center(
           child: Text(
-        'Resource Unavailalbe ...',
+        'Resource Unavailable ...',
         style: TextStyle(
             color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),
       )),
